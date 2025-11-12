@@ -45,6 +45,17 @@ backend/
 事务管理：数据操作失败时自动回滚，保证数据一致性
 跨域支持：允许 http://121.43.124.28、http://localhost、http://127.0.0.1 访问
 ## API 接口文档
+# API 接口文档
+
+| 接口路径 | 请求方法 | 功能描述 | 请求参数| 返回格式示例                                                                 |
+|-------------------------|----------|------------------------|-----------------------------------|------------------------------------------------------------------------------|
+| `/api/health`           | GET      | 服务健康检查           | 无                                | `{"code":200,"status":"ok","message":"服务正常运行"}`                        |
+| `/api/contacts`         | GET      | 获取所有联系人         | 无                                | `{"code":200,"message":"success","data":[{"id":1,"name":"张三","phone":"13800138000","created_time":"2024-01-01 10:00:00","updated_time":"2024-01-01 10:00:00"}]}` |
+| `/api/contacts/{id}`    | GET      | 获取单个联系人         | 路径参数：`id`（联系人 ID，整数类型） | `{"code":200,"message":"success","data":{"id":1,"name":"张三","phone":"13800138000","created_time":"2024-01-01 10:00:00","updated_time":"2024-01-01 10:00:00"}}` |
+| `/api/contacts/add`     | POST     | 添加联系人             | JSON 体：<br>`name`（联系人姓名，非空）<br>`phone`（联系人手机号，非空且唯一） | `{"code":200,"message":"添加联系人成功","data":{"id":1,"name":"张三","phone":"13800138000","created_time":"2024-01-01 10:00:00","updated_time":"2024-01-01 10:00:00"}}` |
+| `/api/contacts/{id}/update` | PUT   | 更新联系人             | 1. 路径参数：`id`（联系人 ID，整数类型）<br>2. JSON 体：<br>`name`（新姓名，非空）<br>`phone`（新手机号，非空且唯一） | `{"code":200,"message":"更新联系人成功","data":{"id":1,"name":"张三更新","phone":"13800138001","created_time":"2024-01-01 10:00:00","updated_time":"2024-01-01 11:00:00"}}` |
+| `/api/contacts/{id}/delete` | DELETE  | 删除联系人             | 路径参数：`id`（联系人 ID，整数类型） | `{"code":200,"message":"删除联系人成功"}`                                    |
+| `/api/contacts/{id}/versions` | GET    | 获取联系人版本历史     | 路径参数：`id`（联系人 ID，整数类型） | `{"code":200,"message":"查询成功","data":[{"id":1,"contact_id":1,"name":"张三","phone":"13800138000","update_time":"2024-01-01 10:00:00","operator":"system"}]}` |
 
 ## 部署说明
 ### 1. 环境准备
